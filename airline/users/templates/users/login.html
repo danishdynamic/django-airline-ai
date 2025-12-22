@@ -1,0 +1,35 @@
+{% extends "users/layout.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="login-container">
+
+    {% if message %}
+    <div class="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'users:login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- This is the link BELOW the box -->
+    <a href="{% url 'users:register' %}" class="login-link">Don't have an account? Sign up</a>
+
+</div>
+
+{% endblock %}

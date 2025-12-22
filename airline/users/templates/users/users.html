@@ -1,0 +1,21 @@
+{% extends "users/layout.html" %}
+{% load static %}
+{% block body %}
+
+<h1>Welcome, {{ request.user.username }}!</h1>
+
+<ul>
+  <li>Email: {{ request.user.email }}</li>
+  <li>Username Name: {{ request.user.username }}</li>
+</ul>
+
+<p>You are successfully logged in.</p>
+
+<form
+  action="{% url 'logout' %}"
+  method="POST">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
+{% endblock %}

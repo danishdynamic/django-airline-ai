@@ -1,0 +1,17 @@
+{% extends "flights/layout.html" %} {% load static %} {% block body %}
+<h2>Write a Review</h2>
+
+<form method="POST">
+  {% csrf_token %}
+
+  <div class="form-group">{{ form.flight.label_tag }} {{ form.flight }}</div>
+
+  <div class="form-group">{{ form.name.label_tag }} {{ form.name }}</div>
+
+  <div class="form-group">{{ form.rating.label_tag }} {{ form.rating }}</div>
+
+  <div class="form-group">{{ form.comment.label_tag }} {{ form.comment }}</div>
+
+  <button type="submit" class="btn btn-add">Submit Review</button>
+</form>
+{% endblock %}
