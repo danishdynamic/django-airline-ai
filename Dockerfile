@@ -24,4 +24,8 @@ COPY . .
 EXPOSE 8000
 
 # Run Django server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "airline/manage.py", "runserver", "0.0.0.0:8000"]
+
+#run on http://localhost:8000
+
+
