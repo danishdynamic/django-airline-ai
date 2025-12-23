@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+
+# Environments
+.env
+.venv
+env/
+
+# Git
+.git
+.gitignore
+
+# OS
+.DS_Store
