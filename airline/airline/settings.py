@@ -34,7 +34,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'flights',
     'users',
-    'rest_framework',
+    'rest_framework',   # for rest API
+    'drf_spectacular',  # for API documentation
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}  # for API documentation
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Airline Reviews API',
+    'DESCRIPTION': 'API for managing airline flight reviews with sentiment analysis',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False, # to exclude schema from the docs view
+    #This will help to generate the schema at /api/schema/ endpoint
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,13 +130,13 @@ USE_TZ = True
 # settings.py
 
 # Where to go after a successful login
-LOGIN_REDIRECT_URL = 'flights:index' 
+LOGIN_REDIRECT_URL = 'flights:index'        # home page after login
 
 # Where to go after logging out
-LOGOUT_REDIRECT_URL = 'users:login'
+LOGOUT_REDIRECT_URL = 'users:login'         # login page after logout
 
 # Where the login page is located (for @login_required decorators)
-LOGIN_URL = 'users:login'
+LOGIN_URL = 'users:login'                   # login page URL
 
 
 # Static files (CSS, JavaScript, Images)
