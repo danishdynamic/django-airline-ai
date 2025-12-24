@@ -9,14 +9,23 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
+# Set GPU environment variable
+ENV USE_GPU=false
+
 # Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \ 
-    pip install --break-system-packages -r requirements.txt
+COPY requirements.txt /app/
+RUN if [ "${USE_GPU}" = "true" ]; then \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir --break-system-packages -r requirements.txt; \
+else \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir --break-system-packages -r requirements.txt; \
+fi && rm -rf /root/.cache/pip /tmp/*
 
 # Copy project files
 COPY . .
