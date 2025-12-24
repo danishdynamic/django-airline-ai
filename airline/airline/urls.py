@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path ('flights/', include('flights.urls', namespace='flights')),
     path('users/', include('users.urls', namespace='users')),
+    path('api/', include('flights.api.urls')),    #API URLS
 ]
