@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \ 
+    pip install --break-system-packages -r requirements.txt
 
 # Copy project files
 COPY . .
