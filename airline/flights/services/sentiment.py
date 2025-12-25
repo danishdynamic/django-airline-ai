@@ -2,8 +2,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 analyzer = SentimentIntensityAnalyzer()
 
-def analyze_sentiment(text: str) -> dict:
-    scores = analyzer.polarity_scores(text)
+def analyze_sentiment(review):
+    scores = analyzer.polarity_scores(review.comment)
     compound = scores["compound"]
 
     if compound >= 0.05:
@@ -13,7 +13,11 @@ def analyze_sentiment(text: str) -> dict:
     else:
         label = "NEUTRAL"
 
-    return {
-        "label": label,
-        "score": round(abs(compound), 4)
-    }
+    review.sentiment_label = label
+    review.sentiment_score = round(abs(compound), 4)
+    review.save(update_fields=["sentiment_label", "sentiment_score"])
+
+    #return {    for api endpoint if needed
+       # "label": label,
+       # "score": round(abs(compound), 4)
+    #}

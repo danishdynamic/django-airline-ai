@@ -5,6 +5,8 @@ from .models import Flight, Review, Passenger
 from .forms import FlightForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
+from flights.services.sentiment import analyze_sentiment
+
 # Create your views here.
 # GET (get the data), POST (sends data ), PUT (update the data), and DELETE
 
@@ -14,7 +16,8 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     flights = Flight.objects.all()
-    reviews = Review.objects.select_related('flight').all()
+    #reviews = Review.objects.select_related('flight').all()
+    reviews = Review.objects.all()
     all_passengers = Passenger.objects.all()
 
     return render(request, 'flights/index.html', {
@@ -71,14 +74,15 @@ def add_review(request):
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
-            form.save()
+            review =form.save()        # Save the form in review variable
+            analyze_sentiment(review)  # Call sentiment analysis function
             return redirect('flights:index')
         else:
             print("FORM ERRORS",form.errors)  # DEBUG: shows why it fails
     else:
         form = ReviewForm()
 
-    return render ( request, 'flights/add_review.html', {'form' : form })    
+    return render ( request, 'flights/add_review.html', {'form' : form} )   
 
 
 

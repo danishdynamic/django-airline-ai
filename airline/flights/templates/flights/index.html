@@ -1,6 +1,4 @@
-{% extends "flights/layout.html" %}
-
-{% load static %} {% block body %}
+{% extends "flights/layout.html" %} {% load static %} {% block body %}
 
 <h1>Flights</h1>
 
@@ -13,11 +11,18 @@
 {% endif %}
 
 <div>
-  <a href="{% url 'flights:create_flight' %}" class="btn btn-add">Add New Flight</a>
+  <a href="{% url 'flights:create_flight' %}" class="btn btn-add"
+    >Add New Flight</a
+  >
 </div>
 
 <div class="search-bar">
-  <input type="text" id="flight-search" placeholder="Search by city, airport, or ID..." class="form-control">
+  <input
+    type="text"
+    id="flight-search"
+    placeholder="Search by city, airport, or ID..."
+    class="form-control"
+  />
 </div>
 
 <table class="table table-striped">
@@ -27,7 +32,7 @@
       <th>Origin</th>
       <th>Destination</th>
       <th>Duration (min)</th>
-      <th>Passengers </th>
+      <th>Passengers</th>
       <th>Book Passenger</th>
       <th>Actions</th>
     </tr>
@@ -41,21 +46,25 @@
       <td>{{ flight.duration }}</td>
       <td>
         {% if flight.passengers.all %}
-          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9em;">
-            {% for passenger in flight.passengers.all %}
-              <li>• {{ passenger.name }}</li>
-            {% endfor %}
-          </ul>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9em">
+          {% for passenger in flight.passengers.all %}
+          <li>• {{ passenger.name }}</li>
+          {% endfor %}
+        </ul>
         {% else %}
-          <span class="text-muted">No passengers</span>
+        <span class="text-muted">No passengers</span>
         {% endif %}
       </td>
       <td>
-        <form action ="{% url 'flights:book' flight.id %}" method="post" style="display: inline;">
+        <form
+          action="{% url 'flights:book' flight.id %}"
+          method="post"
+          style="display: inline"
+        >
           {% csrf_token %}
-          <select name ="passenger" class="form-select">
+          <select name="passenger" class="form-select">
             {% for passenger in all_passengers %}
-              <option value="{{ passenger.id }}">{{ passenger.name }}</option>
+            <option value="{{ passenger.id }}">{{ passenger.name }}</option>
             {% endfor %}
           </select>
           <button type="submit" class="btn btn-book">Book</button>
@@ -65,7 +74,9 @@
         <a href="{% url 'flights:edit_flight' flight.id %}" class="btn btn-edit"
           >Edit</a
         >
-        <a href="{% url 'flights:delete_flight' flight.id %}" class="btn btn-delete"
+        <a
+          href="{% url 'flights:delete_flight' flight.id %}"
+          class="btn btn-delete"
           >Delete</a
         >
       </td>
@@ -73,7 +84,8 @@
     {% empty %}
     <tr>
       <td colspan="5" class="text-center">
-        No flights found. <a href="{% url 'flights:create_flight' %}">Add one now!</a>
+        No flights found.
+        <a href="{% url 'flights:create_flight' %}">Add one now!</a>
       </td>
     </tr>
     {% endfor %}
@@ -84,15 +96,28 @@
 <div class="review-box">
   <div class="review-header">
     <h3>Flight Reviews</h3>
-    <a href="{% url 'flights:add_review' %}" class="btn btn-review ">Write a Review</a>
+    <a href="{% url 'flights:add_review' %}" class="btn btn-review"
+      >Write a Review</a
+    >
   </div>
 
   {% if reviews %} {% for review in reviews %}
   <div class="review-item">
     <p>
-      <strong>Flight #{{ review.flight.id }}</strong> | Rating: {{ review.rating}}/5
+      <strong>Flight #{{ review.flight.id }}</strong> | Rating:
+      {{review.rating}}/5
     </p>
     <p>{{ review.comment }}</p>
+
+    {% if review.sentiment_label %}
+    <!-- adding review sentiment -->
+    <p>
+      <strong>Sentiment:</strong>
+      {% if review.sentiment_label == 'POSITIVE' %}😊 {% elif review.sentiment_label == 'NEGATIVE' %}😞 {% else %}😐 {% endif %} 
+      {{review.sentiment_label }} (Score: {{review.sentiment_score }})
+    </p>
+    {% endif %}
+
     <a href="{% url 'flights:delete_review' review.id %}" class="btn btn-delete"
       >Delete</a
     >
