@@ -1,13 +1,19 @@
-from transformers import pipeline
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-sentiment_pipeline = pipeline(
-    "sentiment-analysis",
-    model="distilbert-base-uncased-finetuned-sst-2-english"
-)
+analyzer = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text: str) -> dict:
-    result = sentiment_pipeline(text)[0]
+    scores = analyzer.polarity_scores(text)
+    compound = scores["compound"]
+
+    if compound >= 0.05:
+        label = "POSITIVE"
+    elif compound <= -0.05:
+        label = "NEGATIVE"
+    else:
+        label = "NEUTRAL"
+
     return {
-        "label": result["label"],      # POSITIVE / NEGATIVE
-        "score": float(result["score"])
+        "label": label,
+        "score": round(abs(compound), 4)
     }
