@@ -11,9 +11,7 @@
 {% endif %}
 
 <div>
-  <a href="{% url 'flights:create_flight' %}" class="btn btn-add"
-    >Add New Flight</a
-  >
+  <a href="/flights/create/" class="btn btn-add">Add New Flight</a>
 </div>
 
 <div class="search-bar">
@@ -57,7 +55,7 @@
       </td>
       <td>
         <form
-          action="{% url 'flights:book' flight.id %}"
+          action="/flights/book/{{ flight.id }}/"
           method="post"
           style="display: inline"
         >
@@ -71,12 +69,8 @@
         </form>
       </td>
       <td>
-        <a href="{% url 'flights:edit_flight' flight.id %}" class="btn btn-edit"
-          >Edit</a
-        >
-        <a
-          href="{% url 'flights:delete_flight' flight.id %}"
-          class="btn btn-delete"
+        <a href="/flights/edit/{{ flight.id }}/" class="btn btn-edit">Edit</a>
+        <a href="/flights/delete/{{ flight.id }}/" class="btn btn-delete"
           >Delete</a
         >
       </td>
@@ -85,7 +79,7 @@
     <tr>
       <td colspan="5" class="text-center">
         No flights found.
-        <a href="{% url 'flights:create_flight' %}">Add one now!</a>
+        <a href="/flights/create/">Add one now!</a>
       </td>
     </tr>
     {% endfor %}
@@ -96,9 +90,7 @@
 <div class="review-box">
   <div class="review-header">
     <h3>Flight Reviews</h3>
-    <a href="{% url 'flights:add_review' %}" class="btn btn-review"
-      >Write a Review</a
-    >
+    <a href="/flights/review/" class="btn btn-review">Write a Review</a>
   </div>
 
   {% if reviews %} {% for review in reviews %}
@@ -113,12 +105,12 @@
     <!-- adding review sentiment , review.sentiment_label and review.sentiment_score is from the sentiment analysis service sentiment.py-->
     <p>
       <strong>Sentiment:</strong>
-      {% if review.sentiment_label == 'POSITIVE' %}😊 {% elif review.sentiment_label == 'NEGATIVE' %}😞 {% else %}😐 {% endif %} 
+      {% if review.sentiment_label == 'POSITIVE' %}😊 {% elif review.sentiment_label == 'NEGATIVE' %}😞 {% else %}😐 {% endif %}
       {{review.sentiment_label }} (Score: {{review.sentiment_score }})
     </p>
     {% endif %}
 
-    <a href="{% url 'flights:delete_review' review.id %}" class="btn btn-delete"
+    <a href="/flights/review/{{ review.id }}/delete/" class="btn btn-delete"
       >Delete</a
     >
   </div>

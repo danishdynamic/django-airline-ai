@@ -1,11 +1,4 @@
-
-
-{% extends "flights/layout.html" %} 
-
-{% load static %}
-
-
-{% block body %}
+{% extends "flights/layout.html" %} {% load static %} {% block body %}
 
 <h1>Delete Flight</h1>
 
@@ -23,7 +16,7 @@
   {% csrf_token %}
 
   <button type="submit" class="btn btn-delete">Yes, Delete</button>
-  <a href="{% url 'index' %}" class="btn btn-delete">Cancel</a>
+  <a href="{% url 'flights:index' %}" class="btn btn-delete">Cancel</a>
 </form>
 
 {% endblock %}

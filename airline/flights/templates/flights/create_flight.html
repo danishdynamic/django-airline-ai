@@ -1,9 +1,4 @@
-
-{% extends "flights/layout.html" %} 
-
-{% load static %} 
-
-{% block body %}
+{% extends "flights/layout.html" %} {% load static %} {% block body %}
 
 <h1>Add New Flight</h1>
 
@@ -34,7 +29,7 @@
   </div>
 
   <button type="submit" class="btn btn-primary">Create Flight</button>
-  <a href="{% url 'flights:index' %}" class="btn btn-delete">Cancel</a>
+  <a href="/flights/" class="btn btn-delete">Cancel</a>
 </form>
 
 {% endblock %}
