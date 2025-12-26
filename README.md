@@ -74,8 +74,15 @@ This project includes a RESTful API built with Django Rest Framework (DRF).
 
 The API documentation is generated using [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/). You can access the interactive API documentation at:
 
+![alt text](Openapi-api-docs-.png)
+
 - **Swagger UI**: `http://127.0.0.1:8000/api/schema/swagger-ui/`
+- 
 - **ReDoc**: `http://127.0.0.1:8000/api/schema/redoc/`
+
+- **Flower** : using flower for monitoring celery tasks at: `http://127.0.0.1:5555`
+
+![alt text](2025-flower-1.png)
 
 Make sure to run the server to access the documentation.
 
