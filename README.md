@@ -17,8 +17,6 @@ The Django Airline AI application allows users to register, log in, and manage f
 
 
 
-
-
 ## Features
 
 | Feature | Description |
