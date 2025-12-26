@@ -6,6 +6,7 @@ from .forms import FlightForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
 from flights.services.sentiment import analyze_sentiment
+from .tasks import analyze_review_sentiment
 
 # Create your views here.
 # GET (get the data), POST (sends data ), PUT (update the data), and DELETE
@@ -75,7 +76,7 @@ def add_review(request):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review =form.save()        # Save the form in review variable
-            analyze_sentiment(review)  # Call sentiment analysis function
+            analyze_review_sentiment.delay(review.id)  # Call sentiment analysis task asynchronously
             return redirect('flights:index')
         else:
             print("FORM ERRORS",form.errors)  # DEBUG: shows why it fails

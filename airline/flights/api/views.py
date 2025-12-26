@@ -4,6 +4,7 @@ from .serializers import ReviewSerializer
 from flights.services.sentiment import analyze_sentiment
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema, OpenApiParameter
+from flights.tasks import analyze_review_sentiment
 
 
 class ReviewViewSet(ModelViewSet):
@@ -33,13 +34,8 @@ class ReviewViewSet(ModelViewSet):
 
         # 2. Add error handling for the AI service
         try:
-            sentiment = analyze_sentiment(review.comment)
-            review.sentiment_label = sentiment["label"]
-            review.sentiment_score = sentiment["score"]
-            review.analyzed_at = timezone.now()
-            # 3. Save the updated fields
-            review.save()
+            analyze_review_sentiment.delay(review.id)  # Call sentiment analysis task asynchronously
         except Exception as e:
-            # If the LLM service is down, we still want the review saved
+            # If the task fails to queue, we still want the review saved
             # but maybe we log the error or set a "pending" status
-            print(f"Sentiment Analysis failed: {e}")
+            print(f"Sentiment Analysis task failed to queue: {e}")

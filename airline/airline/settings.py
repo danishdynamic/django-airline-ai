@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta  # for celery beat schedule
 from pathlib import Path
 
 
@@ -152,3 +153,30 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redis cache configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/1', # Using Redis database 1 for caching
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+#celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Using Redis database 0 for Celery broker
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Celery Beat settings for periodic tasks
+CELERY_BEAT_SCHEDULE = {
+    'hourly-sentiment-cleanup': {
+        'task': 'flights.tasks.hourly_sentiment_cleanup',
+        'schedule': timedelta(minutes=1),    # runs every minute                    
+    },
+}

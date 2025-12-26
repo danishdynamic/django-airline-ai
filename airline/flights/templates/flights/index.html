@@ -110,7 +110,7 @@
     <p>{{ review.comment }}</p>
 
     {% if review.sentiment_label %}
-    <!-- adding review sentiment -->
+    <!-- adding review sentiment , review.sentiment_label and review.sentiment_score is from the sentiment analysis service sentiment.py-->
     <p>
       <strong>Sentiment:</strong>
       {% if review.sentiment_label == 'POSITIVE' %}😊 {% elif review.sentiment_label == 'NEGATIVE' %}😞 {% else %}😐 {% endif %} 

@@ -35,7 +35,7 @@ class FlightTestCase(TestCase):
         # Check if it redirects (status code 302) to the index page
         self.assertEqual(response.status_code, 302)
 
-        # Check if the flight was actually added to the database
+        # Check if the flight was actually added to the database, assert means verify if true
         self.assertEqual(Flight.objects.count(), 1)
         self.assertEqual(Flight.objects.first().origin.code, "JFK")
 
@@ -130,7 +130,7 @@ class FlightTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
         # Verify the review was added
-        self.assertEqual(Review.objects.count(), 1)
+        self.assertEqual(Review.objects.count(), 1) # 1 means one review added
         review = Review.objects.first()
         self.assertEqual(review.flight, flight)
         self.assertEqual(review.rating, 5)
