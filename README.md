@@ -3,9 +3,9 @@
 ## Overview
 This project is a Django-based web application for managing flight bookings and reviews, enhanced with AI sentiment analysis for user reviews.
 
-![alt text](login-page-2.png)
+![alt text](images/login-page-2.png)
 
-![alt text](<Screenshot 2025-12-26 210446.png>)
+![alt text](images/Screenshot 2025-12-26 210446.png)
 
 ## Features
 - User authentication and management
@@ -78,7 +78,7 @@ This project includes a RESTful API built with Django Rest Framework (DRF).
 
 The API documentation is generated using [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/). You can access the interactive API documentation at:
 
-![alt text](Openapi-api-docs-.png)
+![alt text](images/Openapi-api-docs-.png)
 
 - **Swagger UI**: `http://127.0.0.1:8000/api/schema/swagger-ui/`
   
@@ -86,7 +86,7 @@ The API documentation is generated using [drf-spectacular](https://drf-spectacul
 
 - **Flower** : using flower for monitoring celery tasks at: `http://127.0.0.1:5555`
 
-![alt text](2025-flower-1.png)
+![alt text](images/2025-flower-1.png)
 
 Make sure to run the server to access the documentation.
 
@@ -102,3 +102,7 @@ This project is licensed under the MIT License.
 ## Future Improvements
 
 - Implement autoscaling and load balancing using AWS or similar cloud services to enhance performance and reliability under varying loads.
+
+## Images
+
+All PNG images are stored in the `images` folder.
