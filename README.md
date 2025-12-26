@@ -3,6 +3,10 @@
 ## Overview
 This project is a Django-based web application for managing flight bookings and reviews, enhanced with AI sentiment analysis for user reviews.
 
+![alt text](login-page-2.png)
+
+![alt text](<Screenshot 2025-12-26 210446.png>)
+
 ## Features
 - User authentication and management
 - Flight management (create, edit, delete flights)
@@ -77,7 +81,7 @@ The API documentation is generated using [drf-spectacular](https://drf-spectacul
 ![alt text](Openapi-api-docs-.png)
 
 - **Swagger UI**: `http://127.0.0.1:8000/api/schema/swagger-ui/`
-- 
+  
 - **ReDoc**: `http://127.0.0.1:8000/api/schema/redoc/`
 
 - **Flower** : using flower for monitoring celery tasks at: `http://127.0.0.1:5555`
