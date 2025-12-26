@@ -12,9 +12,9 @@
 ## Overview
 The Django Airline AI application allows users to register, log in, and manage flight information. Users can add, edit, and delete flights, as well as submit reviews for each flight. The reviews are analyzed for sentiment using the VADER sentiment analysis tool, and the results are stored in the database. The application uses Celery for asynchronous task processing, particularly for analyzing the sentiment of flight reviews using the VADER sentiment analysis tool.
 
+## Demo
 
-![Login Page Screenshot](images/demo_curd.gif)
-
+<img src="images/demo_curd.gif" width="500" alt="Demo of CURD operations"/>
 
 
 ## Features
